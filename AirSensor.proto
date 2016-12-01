@@ -1,0 +1,6 @@
+syntax = "proto2";
+
+message AirSensorMessage {
+    required float temperature = 1;
+    required float humidity = 2;
+}

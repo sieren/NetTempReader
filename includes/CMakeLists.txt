@@ -12,6 +12,7 @@ set(tempreader_inc_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(tempreader_HEADERS
   ${tempreader_inc_ROOT}/AirSensor.pb.h
+  ${tempreader_inc_ROOT}/Defines.h
   ${tempreader_inc_ROOT}/socket.hpp)
   
 set(tempreader_HEADERS
