@@ -1,4 +1,5 @@
 #include <socket.hpp>
+#include <AirSensor.pb.h>
 #include <stdio.h>
 #include <iostream>
 #include <sstream>
@@ -10,7 +11,6 @@ bool isValidHeader(std::vector<uint8_t>& data)
 {
   using namespace std;
   uint32_t headerVal = CHAR4(data[0], data[1], data[2], data[3]);
-  
   if (headerVal != CHAR4('t', 'e', 'm', 'p'))
   {
     return false;
@@ -21,6 +21,7 @@ bool isValidHeader(std::vector<uint8_t>& data)
 int main (int argc, const char * argv[]) {
 
   ServiceSocket mSocket(2400);
+  AirSensorMessage msg = AirSensorMessage_init_zero;
   while(true)
   {
     if (mSocket.hasReceived())
