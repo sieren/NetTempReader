@@ -1,3 +1,5 @@
+// Written by Matthias Frick, public domain
+
 #include <fcntl.h>
 #include <iostream>
 #include <netdb.h>
