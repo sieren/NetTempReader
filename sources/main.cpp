@@ -30,8 +30,8 @@ int main (int argc, const char * argv[]) {
         };
       }
     }
-    std::cout << "Temp: " << msg.temperature << " Humidity: " << msg.humidity << std::endl;
-    sleep(0.1);
+    std::cout << "Device: " << msg.deviceid << " Temp: " << msg.temperature << " Humidity: " << msg.humidity << std::endl;
+    sleep(1);
   }
 
   return 0;
