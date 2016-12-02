@@ -2,6 +2,7 @@
 #include "pb.h"
 #include "pb_encode.h"
 #include "AirSensor.pb.h"
+#include "DHT.H"
 #if defined(ARDUINO) 
 SYSTEM_MODE(SEMI_AUTOMATIC); 
 #endif
@@ -17,6 +18,11 @@ IPAddress remoteAddr(192,168,8,124); // Remote NetTemp Daemon
 const int MESSAGE_SIZE = 128;
 byte packetBuffer[ MESSAGE_SIZE]; //buffer to hold outgoing packets
 
+static const int DHT_PIN = 3;
+static const int DHT_TYPE = DHT22;
+static const int deviceid = 1; // device ID in network packet
+
+DHT dht(DHT_PIN, DHT_TYPE);
 UDP Udp;
 void printWifiStatus();
 
@@ -57,25 +63,31 @@ void setup()
 
   Serial.println("\nStarting connection to server...");
   Udp.begin(kCommsPort);
+  dht.begin();
 }
 
 void loop()
 {
   delay(1000);
-  sendMessage(remoteAddr);
+  AirSensorMessage message = AirSensorMessage_init_zero;
+
+  message.temperature = dht.readTemperature();
+  message.humidity = dht.readHumidity();
+  message.deviceid = deviceid;
+
+  // temp or humidity is NaN, early return
+  if (isnan(message.temperature) || isnan(message.humidity))
+  {
+    return;
+  }
+  sendMessage(remoteAddr, message);
 }
 
 // Send Message to Daemon via UDP
-void sendMessage(IPAddress& address)
+void sendMessage(IPAddress& address, AirSensorMessage &message)
 {
-   memset(packetBuffer, 0, MESSAGE_SIZE);
+  memset(packetBuffer, 0, MESSAGE_SIZE);
   Udp.beginPacket(address, kCommsPort);
-  AirSensorMessage message = AirSensorMessage_init_zero;
-
- // TODO: REPLACE WITH ACTUAL DHT POLLING
-  message.temperature = 24.0;
-  message.humidity = 12.0;
-  // ------------------------------------
  
   pb_ostream_t output = pb_ostream_from_buffer(packetBuffer, MESSAGE_SIZE);
   if (!pb_encode(&output, AirSensorMessage_fields, &message))
