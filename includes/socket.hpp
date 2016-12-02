@@ -5,6 +5,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -43,10 +44,6 @@ public:
     sockAddr.sin_port = htons(mPort);
     int optval = 1;
     setsockopt(mFd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
-    int sigval = 1;
-    setsockopt (mFd, SOL_SOCKET, SO_NOSIGPIPE,
-      reinterpret_cast <const char *> (&sigval), sizeof (sigval));
-
 
     if(bind(mFd, (struct sockaddr *)&sockAddr, sizeof(sockAddr)) < 0)
     {
