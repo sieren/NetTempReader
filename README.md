@@ -4,7 +4,7 @@ NetTempReader
 
 ## Description
 
-Receive Temperature and Hydro readings from a RedBearLab Duo through WiFi on a Linux or Mac device (e.g. Raspberry Pi).
+Receive Temperature and Hydro readings from a ESP8266 based board or RedBearLab Duo through WiFi on a Linux or Mac device (e.g. Raspberry Pi).
 
 ## Build
 
@@ -24,6 +24,8 @@ Beware:
 The Arduino Sketch is developed to work with either the common [Adafruit Feather HUZZAH ESP8266](https://www.adafruit.com/product/2821) or the [Redbear Duo](https://github.com/redbear/Duo).
 However all data is written into a regular buffer, which can be used with various other
 Arduino IoT/WiFi SDKs. The code should be rather straight forward.
+
+The temperature sensor is the commonly used [DHT22/AM2302] (https://www.adafruit.com/product/393).
 
 ## Run
 `NetTempReader` provides a few command line options:   
