@@ -21,7 +21,7 @@ Make sure to add your AP Station Name and Password as well as the
 Remote IP Address of your the device running the daemon.
    
 Beware:   
-The Arduino Sketch is developed on a [Redbear Duo](https://github.com/redbear/Duo).
+The Arduino Sketch is developed to work with either the common [Adafruit Feather HUZZAH ESP8266](https://www.adafruit.com/product/2821) or the [Redbear Duo](https://github.com/redbear/Duo).
 However all data is written into a regular buffer, which can be used with various other
 Arduino IoT/WiFi SDKs. The code should be rather straight forward.
 
