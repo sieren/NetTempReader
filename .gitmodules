@@ -1,3 +1,6 @@
 [submodule "nanopb"]
 	path = nanopb
 	url = https://github.com/nanopb/nanopb.git
+[submodule "Arduino/rc-switch"]
+	path = Arduino/rc-switch
+	url = https://github.com/sui77/rc-switch.git
